@@ -17,6 +17,9 @@ export const goods = [
 
 export const App = () => {
   const [selectedGood, setSelectedGood] = useState('Jam');
+  const reset = () => {
+    setSelectedGood('');
+  };
 
   return (
     <main className="section container">
@@ -24,7 +27,7 @@ export const App = () => {
         {selectedGood && `${selectedGood} is selected`}
         {selectedGood ? (
           <button
-            onClick={() => setSelectedGood('')}
+            onClick={reset}
             data-cy="ClearButton"
             type="button"
             className="delete ml-3"
@@ -36,9 +39,11 @@ export const App = () => {
 
       <table className="table">
         <tbody>
-          {goods.map(good => {
+          {goods.map((good, index) => {
             return (
               <tr
+                /* eslint-disable-next-line react/no-array-index-key */
+                key={index}
                 data-cy="Good"
                 className={
                   selectedGood === good ? 'has-background-success-light' : ''
@@ -56,7 +61,7 @@ export const App = () => {
                     </button>
                   ) : (
                     <button
-                      onClick={() => setSelectedGood('')}
+                      onClick={reset}
                       data-cy="RemoveButton"
                       type="button"
                       className="button is-info"
